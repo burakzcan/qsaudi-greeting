@@ -24,15 +24,23 @@ const GreetingCard = () => {
   };
 
   return (
-    <VStack spacing={4} p={6} align="center">
+    <VStack spacing="0.5rem" padding="0.5rem" align="center" width="full">
       <Flex
-        flexDirection="row"
+        flexDirection={{ base: "column", md: "row" }}
         width="full"
+        gap="1rem"
         paddingY="1rem"
         alignItems="center"
         justifyContent="space-between"
       >
-        <Flex flexDirection="row" alignItems="center" gap="0.5rem">
+        <Flex
+          flexDirection="row"
+          alignItems="center"
+          gap="0.5rem"
+          width="full"
+          maxWidth="300px"
+          justifyContent="space-between"
+        >
           <Text>Select Card Design</Text>
           <select
             onChange={(e) => setBgImage(e.target.value)}
@@ -59,26 +67,25 @@ const GreetingCard = () => {
 
       <Box
         ref={cardRef}
-        width="1080px"
-        height="1080px"
+        boxSize={{ base: "full", md: "1080px" }}
+        aspectRatio="1"
         backgroundImage={`url(${bgImage})`}
         backgroundSize="contain"
-        borderRadius="lg"
         boxShadow="xl"
         display="flex"
         alignItems="center"
         justifyContent="center"
-        p={4}
+        padding="0.5rem"
         textAlign="center"
         position="relative"
       >
         <Text
-          fontSize="2rem"
+          fontSize={{ base: "0.75rem", sm: "1.2rem", md: "2rem" }}
           fontWeight="bold"
           color="#195e31"
           position="absolute"
           left="50%"
-          bottom="136px"
+          bottom="12.4%"
           transform="translateX(-50%)"
           width="500px"
           textAlign="center"
@@ -87,7 +94,15 @@ const GreetingCard = () => {
         </Text>
       </Box>
 
-      <Button bg="green.500" color="white" padding="1rem" fontSize="1rem" fontWeight="600" marginTop="1rem" onClick={handleDownload}>
+      <Button
+        bg="green.500"
+        color="white"
+        padding="1rem"
+        fontSize="1rem"
+        fontWeight="600"
+        marginTop="1rem"
+        onClick={handleDownload}
+      >
         Download as Image
       </Button>
     </VStack>
