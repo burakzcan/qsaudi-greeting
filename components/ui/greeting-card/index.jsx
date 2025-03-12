@@ -78,6 +78,7 @@ const GreetingCard = () => {
         padding="0.5rem"
         textAlign="center"
         position="relative"
+        maxW="full"
       >
         <Text
           fontSize={{ base: "0.75rem", sm: "1.2rem", md: "2rem" }}
@@ -87,7 +88,10 @@ const GreetingCard = () => {
           left="50%"
           bottom="12.4%"
           transform="translateX(-50%)"
-          width="500px"
+          width={{
+            base: "280px",
+            md: "500px",
+          }}
           textAlign="center"
         >
           {name}
