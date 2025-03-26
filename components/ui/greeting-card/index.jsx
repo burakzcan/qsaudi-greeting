@@ -6,7 +6,7 @@ import domtoimage from "dom-to-image";
 
 const GreetingCard = () => {
   const [name, setName] = useState("");
-  const [bgImage, setBgImage] = useState("/greeting-card.png"); // Default background
+  const [bgImage, setBgImage] = useState("/emp-1.jpg"); // Default background
   const cardRef = useRef(null);
 
   const handleDownload = async () => {
@@ -15,7 +15,7 @@ const GreetingCard = () => {
         const dataUrl = await domtoimage.toJpeg(cardRef.current);
         const link = document.createElement("a");
         link.href = dataUrl;
-        link.download = "greeting-card.jpg";
+        link.download = "emp-1.jpg";
         link.click();
       } catch (error) {
         console.error("Error capturing image", error);
@@ -50,9 +50,9 @@ const GreetingCard = () => {
               fontSize: "16px",
             }}
           >
-            <option value="/greeting-card.png">Card 1</option>
-            <option value="/greeting-card-2.png">Card 2</option>
-            <option value="/greeting-card-3.png">Card 3</option>
+            <option value="/emp-1.jpg">Card 1</option>
+            <option value="/emp-2.jpg">Card 2</option>
+            <option value="/emp-3.jpg">Card 3</option>
           </select>
         </Flex>
 
