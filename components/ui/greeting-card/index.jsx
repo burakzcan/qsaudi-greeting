@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, Input, Text, VStack, Flex } from "@chakra-ui/react";
+import { Box, Button, Input, Text, VStack, Flex, Image } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 import domtoimage from "dom-to-image";
 
@@ -69,8 +69,6 @@ const GreetingCard = () => {
         ref={cardRef}
         boxSize={{ base: "full", md: "1080px" }}
         aspectRatio="1"
-        backgroundImage={`url(${bgImage})`}
-        backgroundSize="contain"
         boxShadow="xl"
         display="flex"
         alignItems="center"
@@ -80,6 +78,7 @@ const GreetingCard = () => {
         position="relative"
         maxW="full"
       >
+        <Image src={bgImage} width="full" height="full" position="relative" />
         <Text
           fontSize={{ base: "0.75rem", sm: "1.2rem", md: "2rem" }}
           fontWeight="bold"
