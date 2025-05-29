@@ -13,8 +13,6 @@ import {
 import html2canvas from "html2canvas";
 import Card1 from "../card-1";
 import Card2 from "../card-2";
-import Card3 from "../card-3";
-import Card4 from "../card-4";
 
 const GreetingCardV2 = () => {
   const [name, setName] = useState("Your Name");
@@ -36,10 +34,6 @@ const GreetingCardV2 = () => {
         return <Card1 name={name} />;
       case "2":
         return <Card2 name={name} />;
-      case "3":
-        return <Card3 name={name} />;
-      case "4":
-        return <Card4 name={name} />;
       default:
         return null;
     }
@@ -94,8 +88,6 @@ const GreetingCardV2 = () => {
             >
               <option value="1">Design 1</option>
               <option value="2">Design 2</option>
-              <option value="3">Design 3</option>
-              <option value="4">Design 4</option>
             </select>
           </Field.Root>
           <Button
