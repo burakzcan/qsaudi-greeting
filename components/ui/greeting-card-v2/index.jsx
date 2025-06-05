@@ -24,20 +24,21 @@ const GreetingCardV2 = () => {
   const svgRef = useRef();
 
   const handleDownload = () => {
-    const canvas = document.querySelector("canvas"); // or use a ref
+    const canvas = document.querySelector("canvas"); // assumes one card on screen
     if (!canvas) return;
 
+    // iOS Safari workaround
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      // iOS workaround: open image in new tab
       canvas.toBlob((blob) => {
         const url = URL.createObjectURL(blob);
-        window.open(url, "_blank"); // iOS will let user long-press and save
+        // Optional alert to guide the user
+        alert("Image will open in a new tab. Long-press to save it.");
+        window.open(url, "_blank");
       }, "image/png");
     } else {
-      // Desktop and Android: download normally
       const link = document.createElement("a");
       link.href = canvas.toDataURL("image/png");
-      link.download = `greeting-card.png`;
+      link.download = `greeting-card-design-${design}.png`;
       link.click();
     }
   };
