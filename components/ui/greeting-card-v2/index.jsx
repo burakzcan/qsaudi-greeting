@@ -14,18 +14,42 @@ import html2canvas from "html2canvas";
 import Card1 from "../card-1";
 import Card2 from "../card-2";
 
+const isIOS = () => {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+};
+
 const GreetingCardV2 = () => {
   const [name, setName] = useState("Your Name");
   const [design, setDesign] = useState("1");
   const svgRef = useRef();
 
   const handleDownload = async () => {
-    const canvas = await html2canvas(svgRef.current);
-    const image = canvas.toDataURL("image/png");
-    const link = document.createElement("a");
-    link.href = image;
-    link.download = `greeting-card-design-${design}.png`;
-    link.click();
+    // Delay to ensure full render
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    const canvas = await html2canvas(svgRef.current, {
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: "#ffffff", // set background explicitly
+      scale: 2,
+    });
+
+    if (isIOS()) {
+      // iOS workaround: open image in new tab
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        window.open(url, "_blank");
+      }, "image/png");
+    } else {
+      // Normal download for desktop/Android
+      const image = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = `greeting-card-design-${design}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
   const renderSVG = () => {
@@ -103,22 +127,23 @@ const GreetingCardV2 = () => {
           </Button>
         </Flex>
       </GridItem>
+
       <GridItem colSpan={{ base: "8", lg: "6" }} height="full">
         <Flex
           flexDirection={{ base: "column", lg: "row" }}
           width="full"
           alignItems="center"
           justifyContent="center"
-          padding="1rem"
           height="full"
-          gap="2rem"
         >
           <Box
             ref={svgRef}
             bg="white"
-            borderRadius="0.5rem"
             overflow="hidden"
+            border="none"
             height="full"
+            maxHeight="90dvh"
+            width="auto"
           >
             {renderSVG()}
           </Box>
