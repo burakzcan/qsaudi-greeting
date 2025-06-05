@@ -23,32 +23,22 @@ const GreetingCardV2 = () => {
   const [design, setDesign] = useState("1");
   const svgRef = useRef();
 
-  const handleDownload = async () => {
-    // Delay to ensure full render
-    await new Promise((resolve) => setTimeout(resolve, 300));
+  const handleDownload = () => {
+    const canvas = document.querySelector("canvas"); // or use a ref
+    if (!canvas) return;
 
-    const canvas = await html2canvas(svgRef.current, {
-      useCORS: true,
-      allowTaint: true,
-      backgroundColor: "#ffffff", // set background explicitly
-      scale: 2,
-    });
-
-    if (isIOS()) {
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
       // iOS workaround: open image in new tab
       canvas.toBlob((blob) => {
         const url = URL.createObjectURL(blob);
-        window.open(url, "_blank");
+        window.open(url, "_blank"); // iOS will let user long-press and save
       }, "image/png");
     } else {
-      // Normal download for desktop/Android
-      const image = canvas.toDataURL("image/png");
+      // Desktop and Android: download normally
       const link = document.createElement("a");
-      link.href = image;
-      link.download = `greeting-card-design-${design}.png`;
-      document.body.appendChild(link);
+      link.href = canvas.toDataURL("image/png");
+      link.download = `greeting-card.png`;
       link.click();
-      document.body.removeChild(link);
     }
   };
 
